@@ -1,4 +1,5 @@
 ALX React App
+
 A simple React application built during the ALX Front-End ReactJS training.
 This project demonstrates creating reusable React components, passing props, and assembling them within a main app.
 
