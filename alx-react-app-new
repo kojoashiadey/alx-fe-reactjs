@@ -1,0 +1,42 @@
+function Header() {
+  return (
+    <header style={{ backgroundColor: 'navy', color: 'white', textAlign: 'center', padding: '1em' }}>
+      <h1>My Favorite Cities</h1>
+    </header>
+  );
+}
+
+export default Header;
+
+function UserProfile(props) {
+  return (
+    <div style={{ border: '1px solid gray', padding: '10px', margin: '10px', backgroundColor: '#f9f9f9' }}>
+      <h2 style={{ color: 'blue', fontSize: '24px', marginBottom: '5px' }}>{props.name}</h2>
+      <p>Age: <span style={{ fontWeight: 'bold', color: '#333' }}>{props.age}</span></p>
+      <p>Bio: <span style={{ fontStyle: 'italic' }}>{props.bio}</span></p>
+    </div>
+  );
+}
+
+export default UserProfile;
+
+function MainContent() {
+  return (
+    <main style={{ padding: '20px', backgroundColor: '#e6f2ff', minHeight: '200px' }}>
+      <p style={{ fontSize: '18px' }}>Welcome to my favorite cities page!</p>
+    </main>
+  );
+}
+
+export default MainContent;
+
+function Footer() {
+  return (
+    <footer style={{ backgroundColor: '#333', color: 'white', textAlign: 'center', padding: '1em' }}>
+      <p>&copy; 2025 My Travel Blog</p>
+    </footer>
+  );
+}
+
+export default Footer;
+
