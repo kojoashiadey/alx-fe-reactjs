@@ -1,33 +1,44 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import TestingComponent from "../components/TestingComponent";
+// src/TodoList.js
+import React, { useState } from "react";
 
-describe("TestingComponent", () => {
-  test("renders TodoList inside TestingComponent", () => {
-    render(<TestingComponent />);
-    expect(screen.getByText("Todo List")).toBeInTheDocument();
-    expect(screen.getByText("Learn React")).toBeInTheDocument();
-  });
+export default function TodoList() {
+  const [todos, setTodos] = useState([
+    { id: 1, text: "Learn React", completed: false },
+    { id: 2, text: "Build Todo App", completed: false }
+  ]);
 
-  test("can add a new todo", () => {
-    render(<TestingComponent />);
-    const input = screen.getByPlaceholderText("Add new todo");
-    fireEvent.change(input, { target: { value: "Extra Task" } });
-    fireEvent.click(screen.getByText("Add"));
-    expect(screen.getByText("Extra Task")).toBeInTheDocument();
-  });
+  const addTodo = (text) => {
+    setTodos([...todos, { id: Date.now(), text, completed: false }]);
+  };
 
-  test("can toggle a todo", () => {
-    render(<TestingComponent />);
-    const todo = screen.getByText("Learn React");
-    fireEvent.click(todo);
-    expect(todo).toHaveStyle("text-decoration: line-through");
-  });
+  const toggleTodo = (id) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  };
 
-  test("can delete a todo", () => {
-    render(<TestingComponent />);
-    const deleteButton = screen.getAllByText("Delete")[0];
-    fireEvent.click(deleteButton);
-    expect(screen.queryByText("Learn React")).not.toBeInTheDocument();
-  });
-});
+  const deleteTodo = (id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
+  return (
+    <div>
+      <h1>Todo List</h1>
+      <ul>
+        {todos.map((todo) => (
+          <li
+            key={todo.id}
+            onClick={() => toggleTodo(todo.id)}
+            style={{ textDecoration: todo.completed ? "line-through" : "none" }}
+          >
+            {todo.text}
+            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+      <button onClick={() => addTodo("New Task")}>Add Todo</button>
+    </div>
+  );
+}
